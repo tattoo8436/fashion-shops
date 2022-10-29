@@ -1,0 +1,28 @@
+$main-bg: #fff;
+$main-color: #4267b2;
+
+$txt-main-color: #000;
+$txt-second-color: #8d8d8d;
+$txt-white: #fff;
+
+$header-height: 100px;
+$header-mobile-height: 40px;
+$header-shrink-height: 70px;
+
+$box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+$box-shadow-img: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+$colors: (
+    'blue': #4267b2,
+    'orange': #fbb96b,
+    "pink": rgb(251, 181, 193),
+    'white': #fff,
+    'black': #000,
+    'main': $main-color,
+    'red': #ee0000,
+    'yellow': rgb(242, 242, 13),
+);
+
+$mobile-width: 600px;
+
+$numbers: (0, 1, 2, 3, 4, 5, 6, 7, 8);

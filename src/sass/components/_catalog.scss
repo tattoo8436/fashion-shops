@@ -1,0 +1,36 @@
+.catalog{
+    @include flex(flex-start, flex-start);
+    position: relative;
+
+    &__filter{
+        margin-top: 20px;
+        width: 20%;
+
+        @include mobile{
+            width: unset;
+        }
+
+        &__widget{
+            margin-bottom: 2rem;
+
+            &__title{
+                font-size: 1.25rem;
+                font-weight: 600;
+                text-transform: capitalize;
+                margin-bottom: 1rem;
+            }
+
+            &__content{
+                color: $txt-second-color;
+
+                &__item{
+                    margin-bottom: 1rem;
+                }
+            }
+        }
+    }
+
+    &__content{
+        width: 80%;
+    }
+}

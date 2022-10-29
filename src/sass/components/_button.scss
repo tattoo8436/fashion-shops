@@ -1,0 +1,39 @@
+.btn{
+    border: 0;
+    outline: 0;
+    color: $main-bg;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    // background-color: $main-color;
+
+    @include mobile{
+        font-size: 1rem;
+    }
+
+    &__txt{
+        display: block;
+        transition: transform 0.5s linear;
+        padding: 1rem 2rem;
+    }
+
+    &-animate:hover{
+        opacity: 0.8;
+    }
+
+    &-sm{
+        font-size: 1rem;
+    }
+
+    &-sm &__txt{
+        padding: 0.7rem 1.5rem;
+    }
+
+    &-block{
+        width: 100%;
+    }
+
+}

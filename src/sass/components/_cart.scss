@@ -1,0 +1,71 @@
+.cart {
+    @include flex(flex-start, flex-start);
+    position: relative;
+
+    @include mobile {
+        flex-wrap: wrap;
+    }
+
+    &__info {
+        margin-top: 30px;
+        margin-right: 30px;
+
+
+        &__txt {
+            &>* {
+                margin-bottom: 10px;
+            }
+
+            p {
+                font-size: 1.25rem;
+            }
+
+            &__price {
+                font-size: 1.5rem;
+                color: $main-color;
+            }
+        }
+
+        &__btn>* {
+            margin-bottom: 20px;
+        }
+    }
+
+    &__list {
+        width: 75%;
+        margin-top: 30px;
+
+    }
+
+    &__item {
+        @include flex(center, flex-start);
+        position: relative;
+        left: 20%;
+        margin-bottom: 20px;
+
+        &__image {
+            padding-right: 20px;
+
+            img {
+                height: 160px;
+            }
+        }
+
+        &__info {
+            &__name,
+            &__price {
+                font-size: 1.25rem;
+            }
+            
+            &>*{
+                padding-bottom: 10px;
+            }
+
+            &__del{
+                font-size: 2rem;
+                cursor: pointer;
+            }
+        }
+    }
+
+}

@@ -1,0 +1,16 @@
+.custom-checkbox{
+    @include flex(center, flex-start);
+    cursor: pointer;
+
+    &:hover{
+        color: $main-color;
+    }
+
+    &__label{
+        margin-left: 5px;
+    }
+
+    input{
+        cursor: pointer;
+    }
+}
