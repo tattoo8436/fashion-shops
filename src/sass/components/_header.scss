@@ -88,18 +88,25 @@
         }
 
         &__left {
+            padding-top: 30px;
 
             &__close {
                 display: none;
+
+                &:hover{
+                    cursor: pointer;
+                    color: $main-color;
+                }
             }
 
             @include mobile {
                 flex-direction: column;
                 background-color: $main-bg;
+                box-shadow: $box-shadow-img;
                 position: absolute;
                 left: 0;
                 top: 0;
-                width: 100%;
+                width: 50vw;
                 height: 100vh;
                 justify-content: flex-start;
                 transform: translateX(-100%);

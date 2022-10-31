@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import Header from '../components/Header';
@@ -11,6 +11,9 @@ import ProductView from '../components/ProductView';
 const Product = props => {
   const param = useParams();
   const product = productData.getProductBySlug(param.slug);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [])
   
   return (
     <>

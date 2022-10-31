@@ -25,7 +25,9 @@ const mainNav = [
 const Header = () => {
   const { pathname } = useLocation();
   const activeNav = mainNav.findIndex(e => e.path === pathname);
-
+  const menuLeft = useRef(null);
+  const menuToggle = () => menuLeft.current.classList.toggle('active');
+  
   return (
     <div className='header'>
       <div className='container'>
@@ -37,11 +39,11 @@ const Header = () => {
         </div>
 
         <div className="header__menu">
-          <div className="header__menu__mobile-toggle">
+          <div className="header__menu__mobile-toggle" onClick={menuToggle}>
             <i className='bx bx-menu'></i>
           </div>
-          <div className="header__menu__left">
-            <div className="header__menu__left__close">
+          <div className="header__menu__left" ref={menuLeft}>
+            <div className="header__menu__left__close" onClick={menuToggle}>
               <i className='bx bx-chevron-left'></i>
             </div>
             {
