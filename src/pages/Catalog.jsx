@@ -34,6 +34,7 @@ const Catalog = () => {
         case 'SIZE':
           setFilter({ ...filter, size: [...filter.size, item.size] });
           break;
+        default:
       }
     } else {
       switch (type) {
@@ -49,6 +50,7 @@ const Catalog = () => {
           const newSize = filter.size.filter(e => e !== item.size);
           setFilter({ ...filter, size: newSize });
           break;
+        default:
       }
     }
   }
@@ -56,17 +58,17 @@ const Catalog = () => {
   const updateProducts = useCallback(
     () => {
       let temp = productList;
-      if(filter.category.length > 0){
+      if (filter.category.length > 0) {
         temp = temp.filter(e => filter.category.includes(e.categorySlug));
-        
+
       }
-      if(filter.color.length > 0){
+      if (filter.color.length > 0) {
         temp = temp.filter(e => {
           const check = e.colors.find(color => filter.color.includes(color));
           return check !== undefined;
         })
       }
-      if(filter.size.length > 0){
+      if (filter.size.length > 0) {
         temp = temp.filter(e => {
           const check = e.size.find(size => filter.size.includes(size));
           return check !== undefined;
