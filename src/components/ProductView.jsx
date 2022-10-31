@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { NumericFormat } from 'react-number-format';
-import { useDispatch, useSelector } from 'react-redux';
-import { set, remove } from '../redux/product-modal/productModalSlice';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 
 import Button from './Button';
-import productData from '../assets/fake-data/products';
 import { addItem } from '../redux/shopping-cart/cartItemSlide';
 
 const ProductView = props => {
@@ -63,12 +61,6 @@ const ProductView = props => {
         }
     }
 
-    // const dispatch = useDispatch();
-    // const productSlug = useSelector((state) => state.productModal.value);
-    // const [pd, setPd] = useState(undefined);
-    // useEffect(() => {
-    //   setPd(productData.getProductBySlug(productSlug));
-    // }, [productSlug]);
     const dispatch = useDispatch();
 
     return (
