@@ -67,6 +67,22 @@
 
             &__item {
                 @include flex(center, center);
+                &:hover{
+                    cursor: pointer;
+                }
+            }
+
+            &__search{
+                margin-right: 10px;
+
+                input{
+                    border-radius: 10px;
+                    height: 2rem;
+                    width: 200px;
+                    border: 1px solid $txt-second-color;
+                    padding: 4px;
+                    margin-bottom: 10px;
+                }
             }
 
             @include mobile {

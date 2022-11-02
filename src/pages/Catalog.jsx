@@ -3,14 +3,13 @@ import React, { useCallback, useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Helmet from '../components/Helmet';
-import Grid from '../components/Grid';
-import ProductCard from '../components/ProductCard';
 import productData from '../assets/fake-data/products';
 import category from '../assets/fake-data/category';
 import colors from '../assets/fake-data/product-color';
 import size from '../assets/fake-data/product-size';
 import Checkbox from '../components/Checkbox';
 import Button from '../components/Button';
+import InfinityList from '../components/InfinityList';
 
 const Catalog = () => {
   const initFilter = {
@@ -19,9 +18,16 @@ const Catalog = () => {
     size: []
   }
   const productList = productData.getAllProducts();
+  // fetch('http://localhost:3000/products')
+  //   .then(response => response.json())
+  //   .then(products => {
+  //     console.log(products);
+  //   })
 
   const [products, setProducts] = useState(productList);
   const [filter, setFilter] = useState(initFilter);
+  const [searchTerm, setSearchTerm] = useState('');
+
   const filterSelect = (type, checked, item) => {
     if (checked) {
       switch (type) {
@@ -33,6 +39,9 @@ const Catalog = () => {
           break;
         case 'SIZE':
           setFilter({ ...filter, size: [...filter.size, item.size] });
+          break;
+        case 'SEARCH':
+          setSearchTerm(checked);
           break;
         default:
       }
@@ -50,10 +59,14 @@ const Catalog = () => {
           const newSize = filter.size.filter(e => e !== item.size);
           setFilter({ ...filter, size: newSize });
           break;
+        case 'SEARCH':
+          setSearchTerm(checked);
+          break;
         default:
       }
     }
   }
+
   const clearFilter = () => setFilter(initFilter);
   const updateProducts = useCallback(
     () => {
@@ -74,9 +87,10 @@ const Catalog = () => {
           return check !== undefined;
         })
       }
+      temp = temp.filter(e => (e.title.toLowerCase()).includes(searchTerm.toLowerCase()))
       setProducts(temp);
     },
-    [filter, productList],
+    [filter, productList, searchTerm],
   )
 
   useEffect(() => {
@@ -92,6 +106,12 @@ const Catalog = () => {
             <div className="catalog">
               <div className="catalog__filter">
                 <div className="catalog__filter__widget">
+                  <div className="catalog__filter__widget__search">
+                    <input type="text"
+                      placeholder='Tìm kiếm'
+                      onChange={(input) => filterSelect('SEARCH', input.target.value, null)} />
+                  </div>
+
                   <div className="catalog__filter__widget__title">
                     Danh mục sản phẩm
                   </div>
@@ -157,24 +177,11 @@ const Catalog = () => {
                   </div>
                 </div>
               </div>
+
               <div className="catalog__content">
-                <Grid
-                  col={3}
-                  smCol={1}
-                  gap={20}
-                >
-                  {
-                    products.map((item, index) => (
-                      <ProductCard
-                        key={index}
-                        img={item.image01}
-                        name={item.title}
-                        price={Number(item.price)}
-                        slug={item.slug}
-                      />
-                    ))
-                  }
-                </Grid>
+                <InfinityList 
+                  data={products}
+                />
               </div>
             </div>
           </Helmet>

@@ -12,6 +12,7 @@ export const cartItemsSlice = createSlice({
     reducers: {
         addItem: (state, action) => {
             const newItem = action.payload;
+            console.log(newItem);
             const duplicate = findItem(state.value, newItem);
 
             if (duplicate.length > 0) {

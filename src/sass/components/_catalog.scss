@@ -27,6 +27,17 @@
                     margin-bottom: 1rem;
                 }
             }
+
+            &__search{
+                padding-bottom: 20px;
+                
+                input{
+                    height: 2rem;
+                    border-radius: 20px;
+                    padding: 6px;
+                    border: 1px solid $txt-second-color;
+                }
+            }
         }
     }
 
