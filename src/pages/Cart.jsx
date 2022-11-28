@@ -11,7 +11,9 @@ import { Link } from 'react-router-dom';
 import CartItem from '../components/CartItem';
 
 const Cart = () => {
-  const cartItems = useSelector((state) => state.cartItems.value);
+  const cartItems = useSelector((state) => {
+    console.log(state.cartItems);
+    return state.cartItems.value});
   console.log(productData.getCartItemsInfo(cartItems));
   const [cartProducts, setCartProducts] = useState(productData.getCartItemsInfo(cartItems));
   const [totalProduct, setTotalProduct] = useState(0);

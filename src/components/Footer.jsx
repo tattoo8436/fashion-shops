@@ -1,7 +1,6 @@
+import { Col, Row } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';
-
-import Grid from './Grid';
 
 const footerAboutLink = [
   {
@@ -44,8 +43,8 @@ const footerCustomerLink = [
 const Footer = () => {
   return (
     <div className='footer'>
-      <div className="container">
-        <Grid col={3} smCol={1} gap={10}>
+      <Row>
+        <Col span={8}>
           <div>
             <div className="footer__title">
               Tổng đài hỗ trợ
@@ -55,7 +54,9 @@ const Footer = () => {
               <p>Liên hệ đặt hàng <strong>0123456789</strong></p>
             </div>
           </div>
+        </Col>
 
+        <Col span={8}>
           <div>
             <div className="footer__title">
               Về Yolo
@@ -69,7 +70,9 @@ const Footer = () => {
               ))}
             </div>
           </div>
+        </Col>
 
+        <Col span={8}>
           <div>
             <div className="footer__title">
               Chăm sóc khách hàng
@@ -83,9 +86,8 @@ const Footer = () => {
               ))}
             </div>
           </div>
-
-        </Grid>
-      </div>
+        </Col>
+      </Row>
     </div>
   )
 }

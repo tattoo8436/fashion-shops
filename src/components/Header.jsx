@@ -1,76 +1,93 @@
-import React, { useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Badge, Drawer, Menu } from 'antd';
+import { ContactsOutlined, CrownOutlined, GiftOutlined, HomeOutlined, MenuOutlined, SketchOutlined, UserOutlined } from '@ant-design/icons';
+import 'antd/dist/antd.min.css';
 
 import logo from '../assets/images/Logo-2.png';
 
-const mainNav = [
-  {
-    display: 'Trang chủ',
-    path: '/'
-  },
-  {
-    display: 'Sản phẩm',
-    path: '/catalog'
-  },
-  {
-    display: 'Phụ kiện',
-    path: '/accessories'
-  },
-  {
-    display: 'Liên hệ',
-    path: '/contact'
-  }
-]
-
 const Header = () => {
-  const { pathname } = useLocation();
-  const activeNav = mainNav.findIndex(e => e.path === pathname);
-  const menuLeft = useRef(null);
-  const menuToggle = () => menuLeft.current.classList.toggle('active');
+  const [openMenu, setOpenMenu] = useState(false);
 
   return (
     <div className='header'>
-      <div className='container'>
+      <div className="header__logo">
+        <Link to='/'>
+          <img src={logo} alt='' />
+        </Link>
+      </div>
 
-        <div className="header__logo">
-          <Link to='/'>
-            <img src={logo} alt='' />
-          </Link>
+      <div className="header__menu">
+        <div className="header__menu__icon">
+          <MenuOutlined
+            onClick={() => setOpenMenu(true)} />
         </div>
 
-        <div className="header__menu">
-          <div className="header__menu__mobile-toggle" onClick={menuToggle}>
-            <i className='bx bx-menu'></i>
-          </div>
-          <div className="header__menu__left" ref={menuLeft}>
-            <div className="header__menu__left__close" onClick={menuToggle}>
-              <i className='bx bx-chevron-left'></i>
-            </div>
-            {
-              mainNav.map((item, index) => (
-                <div key={index} className={`header__menu__item
-                header__menu__left__item ${index === activeNav ? 'active' : ''}`}>
-                  <Link to={item.path}>
-                    <span>{item.display}</span>
-                  </Link>
-                </div>
-              ))
-            }
-          </div>
+        <span className="header__menu__left">
+          <MenuLeft mode='horizontal' />
+        </span>
 
-          <div className="header__menu__right">
-            <div className="header__menu__item header__menu__right__item">
-              <Link to='/cart'>
-                <i className='bx bx-shopping-bag'></i>
-              </Link>
-            </div>
-            <div className="header__menu__item header__menu__right__item">
-              <i className='bx bx-user'></i>
-            </div>
-          </div>
+        <Drawer
+          open={openMenu}
+          placement='left'
+          onClose={() => setOpenMenu(false)}
+        >
+          <MenuLeft mode='vertical' />
+        </Drawer>
+
+        <div className="header__menu__right">
+          <Link to='/cart'>
+            <Badge count={2}>
+              <GiftOutlined />
+            </Badge>
+          </Link>
+
+          <Link to='/profile'>
+            <UserOutlined />
+          </Link>
         </div>
       </div>
     </div>
+  )
+}
+
+function MenuLeft(props) {
+  const navigate = useNavigate();
+
+  const itemPages = [
+    {
+      key: '/',
+      label: 'Trang chủ',
+      icon: <HomeOutlined />,
+    },
+    {
+      key: '/catalog',
+      label: 'Sản phẩm',
+      icon: <CrownOutlined />,
+    },
+    {
+      key: '/accessories',
+      label: 'Phụ kiện',
+      icon: <SketchOutlined />,
+    },
+    {
+      key: '/contact',
+      label: "Liên hệ",
+      icon: <ContactsOutlined />,
+    }
+  ]
+
+  const onMenuChange = (key) => {
+    navigate(key);
+  }
+
+  return (
+      <Menu
+        items={itemPages}
+        mode={props.mode}
+        defaultActiveFirst='/'
+        onClick={(e) => onMenuChange(e.key)}
+      ></Menu>
   )
 }
 
