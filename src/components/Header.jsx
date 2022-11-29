@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { Badge, Drawer, Menu } from 'antd';
 import { ContactsOutlined, CrownOutlined, GiftOutlined, HomeOutlined, MenuOutlined, SketchOutlined, UserOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.min.css';
@@ -8,6 +9,17 @@ import logo from '../assets/images/Logo-2.png';
 
 const Header = () => {
   const [openMenu, setOpenMenu] = useState(false);
+  const [valueItems, setValueItems] = useState(0);
+  
+  const totalItems = useSelector((state) => {
+    let totalItems = 0;
+    state.cartItems.value.map((item) => totalItems = totalItems + item.quantity);
+    return totalItems;
+  });
+  
+  useEffect(() => {
+    setValueItems(totalItems);
+  }, [totalItems])
 
   return (
     <div className='header'>
@@ -37,7 +49,7 @@ const Header = () => {
 
         <div className="header__menu__right">
           <Link to='/cart'>
-            <Badge count={2}>
+            <Badge count={valueItems} showZero>
               <GiftOutlined />
             </Badge>
           </Link>
@@ -82,12 +94,12 @@ function MenuLeft(props) {
   }
 
   return (
-      <Menu
-        items={itemPages}
-        mode={props.mode}
-        defaultActiveFirst='/'
-        onClick={(e) => onMenuChange(e.key)}
-      ></Menu>
+    <Menu
+      items={itemPages}
+      mode={props.mode}
+      defaultActiveFirst='/'
+      onClick={(e) => onMenuChange(e.key)}
+    ></Menu>
   )
 }
 

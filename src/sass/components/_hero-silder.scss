@@ -22,12 +22,13 @@
                 font-weight: 600;
                 font-size: 3.5rem;
                 line-height: 5rem;
-                overflow: hidden;
                 color: $main-color;
 
                 @include mobile {
-                    font-size: 2.5rem;
-                    line-height: 3.25rem;
+                    font-size: 1.75rem;
+                    line-height: 2.25rem;
+                    font-weight: 500;
+                    padding-top: 20px;
                 }
             }
 
@@ -35,11 +36,16 @@
                 color: $txt-second-color;
                 font-size: 1.25rem;
                 line-height: 1.5rem;
+
+                @include mobile{
+                    font-size: 1rem;
+                }
             }
 
             &__btn {
                 display: flex;
                 justify-content: center;
+                padding-bottom: 30px;
             }
 
         }

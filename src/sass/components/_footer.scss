@@ -1,18 +1,22 @@
 .footer{
     width: 100%;
-    padding: 30px 20px;
-    box-shadow: $box-shadow;
+    padding: 0 20px 20px;
     font-size: 1.1rem;
 
     &__title{
         text-transform: uppercase;
-        margin-bottom: 2rem;
+        margin-bottom: 1.5rem;
+        margin-top: 2rem;
         font-weight: 600;
     }
 
     &__content{
          p{
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
          }
+    }
+
+    .ant-col{
+        column-span: 24;
     }
 }

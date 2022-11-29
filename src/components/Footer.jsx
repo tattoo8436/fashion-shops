@@ -44,7 +44,7 @@ const Footer = () => {
   return (
     <div className='footer'>
       <Row>
-        <Col span={8}>
+        <Col xs={24} xl={8} >
           <div>
             <div className="footer__title">
               Tổng đài hỗ trợ
@@ -56,7 +56,7 @@ const Footer = () => {
           </div>
         </Col>
 
-        <Col span={8}>
+        <Col xs={24} xl={8}>
           <div>
             <div className="footer__title">
               Về Yolo
@@ -72,7 +72,7 @@ const Footer = () => {
           </div>
         </Col>
 
-        <Col span={8}>
+        <Col xs={24} xl={8}>
           <div>
             <div className="footer__title">
               Chăm sóc khách hàng

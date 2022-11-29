@@ -4,29 +4,28 @@ import { NumericFormat } from 'react-number-format';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 
-import Button from './Button';
 import { addItem } from '../redux/shopping-cart/cartItemSlide';
+import { Button, Col, Collapse, Row } from 'antd';
 
 const ProductView = props => {
     const product = props.product;
-    const [descriptionExpand, setDescriptionExpand] = useState(false);
     const [color, setColor] = useState(undefined);
     const [size, setSize] = useState(undefined);
     const [quantity, setQuantity] = useState(1);
     const updateQuantity = (type) => {
-        if(type === 'plus'){
+        if (type === 'plus') {
             setQuantity(quantity + 1);
-        } else{
+        } else {
             setQuantity(quantity === 1 ? 1 : quantity - 1);
         }
     }
 
     const check = () => {
-        if(color === undefined){
+        if (color === undefined) {
             alert('Vui lòng chọn màu sắc');
             return false;
         }
-        if(size === undefined){
+        if (size === undefined) {
             alert('Vui lòng chọn kích cỡ');
             return false
         }
@@ -34,7 +33,7 @@ const ProductView = props => {
     }
 
     const addToCart = () => {
-        if(check()){
+        if (check()) {
             dispatch(addItem({
                 slug: product.slug,
                 color: color,
@@ -49,7 +48,7 @@ const ProductView = props => {
     let navigate = useNavigate();
 
     const goToCart = () => {
-        if(check()){
+        if (check()) {
             dispatch(addItem({
                 slug: product.slug,
                 color: color,
@@ -65,99 +64,115 @@ const ProductView = props => {
 
     return (
         <div className='product'>
-            <div className="product__image">
-                <img src={product.image01} alt="" />
-                <div className={`product-description ${descriptionExpand ? 'expand' : ''}`}>
-                    <div className="product-description__title">
-                        Chi tiết sản phẩm
+            <Row>
+                <Col span={14}>
+                    <div className="product__image">
+                        <Row>
+                            <Col span={18}>
+                                <div className="product__image__main">
+                                    <img src={product.image01} alt="" />
+                                </div>
+                            </Col>
+
+                            <Col span={6}>
+                                <div className="product__image__sub">
+                                    <img src={product.image01} alt="" />
+                                    <img src={product.image02} alt="" />
+                                </div>
+                            </Col>
+                        </Row>
                     </div>
 
-                    <div className="product-description__content"
-                        dangerouslySetInnerHTML={{ __html: product.description }}
-                    >
-                    </div>
+                </Col>
 
-                    <div className="product-description__toggle">
-                        <Button size='sm' animate={true}
-                            onClick={() => setDescriptionExpand(!descriptionExpand)}>
-                            {descriptionExpand ? 'Thu gọn' : 'Xem thêm'}
-                        </Button>
-                    </div>
-                </div>
-            </div>
+                <Col span={10}>
+                    <div className="product__info">
+                        <h2 className="product__info__title">{product.title}</h2>
+                        <div className="product__info__item">
+                            <div className="product__info__item__price">
+                                <NumericFormat value={product.price} displayType={'text'}
+                                    thousandSeparator={true}></NumericFormat>đ
+                            </div>
+                        </div>
 
-            <div className="product__info">
-                <h1 className="product__info__title">{product.title}</h1>
-                <div className="product__info__item">
-                    <div className="product__info__item__price">
-                        <NumericFormat value={product.price} displayType={'text'}
-                            thousandSeparator={true}></NumericFormat>đ
-                    </div>
-                </div>
+                        <div className="product__info__item">
+                            <div className="product__info__item__title">
+                                Màu sắc
+                            </div>
 
-                <div className="product__info__item">
-                    <div className="product__info__item__title">
-                        Màu sắc
-                    </div>
-
-                    <div className="product__info__item__list">
-                        {
-                            product.colors.map((item, index) => (
-                                <div key={index} className={`product__info__item__list__item 
+                            <div className="product__info__item__list">
+                                {
+                                    product.colors.map((item, index) => (
+                                        <div key={index} className={`product__info__item__list__item 
                                 ${color === item ? 'active' : ''}`} onClick={() => setColor(item)}>
-                                    <div className={`circle bg-${item}`}></div>
-                                </div>
-                            ))
-                        }
-                    </div>
-                </div>
+                                            <div className={`circle bg-${item}`}></div>
+                                        </div>
+                                    ))
+                                }
+                            </div>
+                        </div>
 
-                <div className="product__info__item">
-                    <div className="product__info__item__title">
-                        Kích cỡ
-                    </div>
+                        <div className="product__info__item">
+                            <div className="product__info__item__title">
+                                Kích cỡ
+                            </div>
 
-                    <div className="product__info__item__list">
-                        {
-                            product.size.map((item, index) => (
-                                <div key={index} className={`product__info__item__list__item 
+                            <div className="product__info__item__list">
+                                {
+                                    product.size.map((item, index) => (
+                                        <div key={index} className={`product__info__item__list__item 
                                 ${size === item ? 'active' : ''}`} onClick={() => setSize(item)}>
-                                    <div className="product__info__item__list__item__size">
-                                        {item}
-                                    </div>
+                                            <div className="product__info__item__list__item__size">
+                                                {item}
+                                            </div>
+                                        </div>
+                                    ))
+                                }
+                            </div>
+                        </div>
+
+                        <div className="product__info__item">
+                            <div className="product__info__item__title">
+                                Số lượng
+                            </div>
+
+                            <div className="product__info__item__quantity">
+                                <div className="product__info__item__quantity__btn"
+                                    onClick={() => updateQuantity('minus')}>
+                                    <i className="bx bx-minus"></i>
                                 </div>
-                            ))
-                        }
-                    </div>
-                </div>
 
-                <div className="product__info__item">
-                    <div className="product__info__item__title">
-                        Số lượng
-                    </div>
+                                <div className="product__info__item__quantity__input">
+                                    {quantity}
+                                </div>
 
-                    <div className="product__info__item__quantity">
-                        <div className="product__info__item__quantity__btn"
-                            onClick={() => updateQuantity('minus')}>
-                            <i className="bx bx-minus"></i>
+                                <div className="product__info__item__quantity__btn"
+                                    onClick={() => updateQuantity('plus')}>
+                                    <i className="bx bx-plus"></i>
+                                </div>
+                            </div>
                         </div>
 
-                        <div className="product__info__item__quantity__input">
-                            {quantity}
-                        </div>
-
-                        <div className="product__info__item__quantity__btn"
-                            onClick={() => updateQuantity('plus')}>
-                            <i className="bx bx-plus"></i>
+                        <div className="product__info__item">
+                            <Button type='primary' onClick={() => addToCart()}>Thêm vào giỏ hàng</Button>
+                            <Button type='primary' onClick={() => goToCart()}>Mua ngay</Button>
                         </div>
                     </div>
-                </div>
+                </Col>
+            </Row>
 
-                <div className="product__info__item">
-                    <Button size='sm' animate={true} onClick={() => addToCart()}>Thêm vào giỏ hàng</Button>
-                    <Button size='sm' animate={true} onClick={() => goToCart()}>Mua ngay</Button>
-                </div>
-            </div>
+            <Row>
+                <Col span={24}>
+                    <Collapse>
+                        <Collapse.Panel header='Thông tin sản phẩm'>
+                            <div className="product-description"
+                                dangerouslySetInnerHTML={{ __html: product.description }}
+                            ></div>
+                        </Collapse.Panel>
+                    </Collapse>
+                </Col>
+            </Row>
+
         </div>
     )
 }

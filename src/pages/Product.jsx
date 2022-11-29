@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -7,6 +7,7 @@ import Footer from '../components/Footer';
 import productData from '../assets/fake-data/products';
 import Helmet from '../components/Helmet';
 import ProductView from '../components/ProductView';
+import { Breadcrumb } from 'antd';
 
 const Product = props => {
   const param = useParams();
@@ -14,16 +15,29 @@ const Product = props => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [])
-  
+
   return (
     <>
       <Header />
       <div className="container">
-        <div className="main">
-          <Helmet title={product.title}>
-            <ProductView product={product} />
-          </Helmet>
+        <div className="header__route">
+          <Breadcrumb>
+            <Breadcrumb.Item>
+              <Link to='/'>Trang chủ</Link>
+            </Breadcrumb.Item>
+
+            <Breadcrumb.Item>
+              <Link to='/catalog'>Sản phẩm</Link>
+            </Breadcrumb.Item>
+
+            <Breadcrumb.Item>
+              <Link>{product.slug} </Link>
+            </Breadcrumb.Item>
+          </Breadcrumb>
         </div>
+        <Helmet title={product.title}>
+          <ProductView product={product} />
+        </Helmet>
       </div>
       <Footer />
     </>

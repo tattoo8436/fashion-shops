@@ -4,9 +4,17 @@
     z-index: 100;
     background-color: #fff;
 
+    @include mobile{
+        top: -50px;
+    }
+
     &__logo {
         img {
             height: 80px;
+
+            @include mobile{
+                height: 50px;
+            }
         }
 
         margin: 20px 20px;
@@ -23,7 +31,6 @@
             flex-grow: 1;
 
             .ant-menu-item {
-
                 .anticon,
                 .ant-menu-title-content {
                     font-size: 1.5rem;
@@ -37,6 +44,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
+
+            @include mobile{
+                width: 150px;
+            }
 
             .anticon {
                 font-size: 2rem;

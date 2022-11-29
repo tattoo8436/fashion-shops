@@ -1,4 +1,4 @@
-const colors = [
+const color = [
     {
         display: "Trắng",
         color: "white"
@@ -25,4 +25,4 @@ const colors = [
     }
 ]
 
-export default colors
+export default color
