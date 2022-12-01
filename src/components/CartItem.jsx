@@ -5,6 +5,8 @@ import { NumericFormat } from 'react-number-format';
 import { Link } from 'react-router-dom';
 
 import { updateItem, removeItem } from '../redux/shopping-cart/cartItemSlide';
+import { Col, Image, Row } from 'antd';
+import { DeleteOutlined } from '@ant-design/icons';
 
 const CartItem = props => {
     const dispatch = useDispatch();
@@ -31,42 +33,53 @@ const CartItem = props => {
 
     return (
         <div className='cart__item'>
-            <div className="cart__item__image">
-                <img src={item.product.image01} alt="" />
-            </div>
+            <Row>
+                <Col span={6}>
+                    <div className="cart__item__image">
+                        <Image src={item.product.image01} alt="" />
+                    </div>
+                </Col>
 
-            <div className="cart__item__info">
-                <div className="cart__item__info__name">
-                    <Link to={`/catalog/${item.slug}`}>
-                        {`${item.product.title} - ${item.color} - ${item.size}`}
-                    </Link>
-                </div>
-
-                <div className="cart__item__info__price">
-                    <NumericFormat value={item.product.price} displayType={'text'}
-                        thousandSeparator={true}></NumericFormat>đ
-                </div>
-
-                <div className="cart__item__info__quantity">
-                    <div className="product__info__item__quantity">
-                        <div className="product__info__item__quantity__btn" onClick={() => updateQuantity('-')}>
-                            <i className="bx bx-minus"></i>
+                <Col span={14} offset={2}>
+                    <div className="cart__item__info">
+                        <div className="cart__item__info__name">
+                            <Link to={`/catalog/${item.slug}`}>
+                                {`${item.product.title}`}
+                            </Link>
+                            <div className="cart__item__info__name__detail">
+                                <div>Màu sắc - {item.color} </div>
+                                <div>Kích cỡ - {item.size} </div>
+                            </div>
                         </div>
 
-                        <div className="product__info__item__quantity__input">
-                            {item.quantity}
+                        <div className="cart__item__info__price">
+                            <NumericFormat value={item.product.price} displayType={'text'}
+                                thousandSeparator={true}></NumericFormat>đ
                         </div>
 
-                        <div className="product__info__item__quantity__btn" onClick={() => updateQuantity('+')}>
-                            <i className="bx bx-plus"></i>
+                        <div className="cart__item__info__quantity">
+                            <div className="product__info__item__quantity">
+                                <div className="product__info__item__quantity__btn" onClick={() => updateQuantity('-')}>
+                                    <i className="bx bx-minus"></i>
+                                </div>
+
+                                <div className="product__info__item__quantity__input">
+                                    {item.quantity}
+                                </div>
+
+                                <div className="product__info__item__quantity__btn" onClick={() => updateQuantity('+')}>
+                                    <i className="bx bx-plus"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="cart__item__info__del">
+                            <DeleteOutlined onClick={() => removeCartItem()} />
                         </div>
                     </div>
-                </div>
+                </Col>
+            </Row>
 
-                <div className="cart__item__info__del">
-                    <i className="bx bx-trash" onClick={() => removeCartItem()}></i>
-                </div>
-            </div>
         </div>
     )
 }

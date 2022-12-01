@@ -5,13 +5,14 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 
 import { addItem } from '../redux/shopping-cart/cartItemSlide';
-import { Button, Col, Collapse, Row } from 'antd';
+import { Button, Col, Collapse, Image, notification, Row } from 'antd';
 
 const ProductView = props => {
     const product = props.product;
     const [color, setColor] = useState(undefined);
     const [size, setSize] = useState(undefined);
     const [quantity, setQuantity] = useState(1);
+
     const updateQuantity = (type) => {
         if (type === 'plus') {
             setQuantity(quantity + 1);
@@ -22,14 +23,30 @@ const ProductView = props => {
 
     const check = () => {
         if (color === undefined) {
-            alert('Vui lòng chọn màu sắc');
+            notifyError('Vui lòng chọn màu sắc');
             return false;
         }
         if (size === undefined) {
-            alert('Vui lòng chọn kích cỡ');
-            return false
+            notifyError('Vui lòng chọn kích cỡ');
+            return false;
         }
         return true;
+    }
+
+    const [apiNotify, contexHolder] = notification.useNotification();
+
+    const notifyAddToCart = () => {
+        apiNotify.success({
+            message: 'Thành công',
+            description: 'Thêm vào giỏ hàng thành công'
+        })
+    }
+
+    const notifyError = (e) => {
+        apiNotify.error({
+            message: 'Lỗi',
+            description: e
+        })
     }
 
     const addToCart = () => {
@@ -41,7 +58,7 @@ const ProductView = props => {
                 quantity: quantity,
                 price: product.price
             }));
-            alert('Thêm vào giỏ hàng thành công');
+            notifyAddToCart();
         }
     }
 
@@ -64,21 +81,27 @@ const ProductView = props => {
 
     return (
         <div className='product'>
+            {contexHolder}
             <Row>
                 <Col span={14}>
                     <div className="product__image">
                         <Row>
                             <Col span={18}>
                                 <div className="product__image__main">
-                                    <img src={product.image01} alt="" />
+                                    <Image src={product.image01} alt="" />
                                 </div>
                             </Col>
 
                             <Col span={6}>
                                 <div className="product__image__sub">
-                                    <img src={product.image01} alt="" />
-                                    <img src={product.image02} alt="" />
+                                    <div>
+                                        <Image src={product.image01} alt="" />
+                                    </div>
+                                    <div>
+                                        <Image src={product.image02} alt="" />
+                                    </div>
                                 </div>
+
                             </Col>
                         </Row>
                     </div>
@@ -154,8 +177,10 @@ const ProductView = props => {
                         </div>
 
                         <div className="product__info__item">
-                            <Button type='primary' onClick={() => addToCart()}>Thêm vào giỏ hàng</Button>
-                            <Button type='primary' onClick={() => goToCart()}>Mua ngay</Button>
+                            <div className="product__info__item__btn">
+                                <Button onClick={() => addToCart()}>Thêm vào giỏ hàng</Button>
+                                <Button type='primary' onClick={() => goToCart()}>Mua ngay</Button>
+                            </div>
                         </div>
                     </div>
                 </Col>
@@ -163,13 +188,15 @@ const ProductView = props => {
 
             <Row>
                 <Col span={24}>
-                    <Collapse>
-                        <Collapse.Panel header='Thông tin sản phẩm'>
-                            <div className="product-description"
-                                dangerouslySetInnerHTML={{ __html: product.description }}
-                            ></div>
-                        </Collapse.Panel>
-                    </Collapse>
+                    <div className="product__description">
+                        <Collapse>
+                            <Collapse.Panel header='Thông tin sản phẩm'>
+                                <div className="product-description"
+                                    dangerouslySetInnerHTML={{ __html: product.description }}
+                                ></div>
+                            </Collapse.Panel>
+                        </Collapse>
+                    </div>
                 </Col>
             </Row>
 

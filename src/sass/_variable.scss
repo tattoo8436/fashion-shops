@@ -4,6 +4,15 @@ $main-color: #992fe2;
 $txt-main-color: #000;
 $txt-second-color: #8d8d8d;
 $txt-white: #fff;
+$colors: (
+    "blue": #4267b2,
+    "orange": #fbb96b,
+    "yellow": #efd910,
+    "white": #fff,
+    "black": #000,
+    "main": $main-color,
+    "red": #ff0000,
+);
 
 $header-height: 100px;
 $header-mobile-height: 60px;

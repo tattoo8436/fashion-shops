@@ -7,19 +7,41 @@
                 width: 100%;
             }
         }
+
+        &__main {
+            padding: 5px;
+        }
+
+        &__sub {
+            @include flex(center, center);
+            flex-direction: column;
+            padding-top: 5px;
+        }
     }
 
     &__info {
         padding: 0 2rem;
 
+        @include mobile {
+            padding: 0 10px;
+        }
+
         &__title {
             font-size: 1.75rem;
             font-weight: 500;
             color: $main-color;
+
+            @include mobile {
+                font-size: 1rem;
+            }
         }
 
         &__item {
             margin-top: 2rem;
+
+            @include mobile {
+                margin-top: 5px;
+            }
 
             &__price {
                 font-size: 1.5rem;
@@ -30,6 +52,11 @@
                 font-size: 1.2rem;
                 font-weight: 600;
                 margin-bottom: 1rem;
+
+                @include mobile {
+                    font-size: 1rem;
+                    margin-bottom: 5px;
+                }
             }
 
             &__list {
@@ -44,6 +71,12 @@
                     border: 1px solid $txt-second-color;
                     cursor: pointer;
                     margin-right: 1rem;
+
+                    @include mobile {
+                        margin-right: 6px;
+                        width: 22px;
+                        height: 22px;
+                    }
 
                     &:hover {
                         border-color: $main-color;
@@ -62,7 +95,11 @@
                     &__size {
                         text-transform: uppercase;
                         font-weight: 500;
-                        font-size: 1.25rem;
+                        font-size: 1rem;
+
+                        @include mobile {
+                            font-size: 0.7rem;
+                        }
                     }
                 }
             }
@@ -78,6 +115,20 @@
                     border: 1px solid $txt-second-color;
                     font-size: 1.5rem;
                     cursor: pointer;
+
+                    @include mobile {
+                        width: 22px;
+                        height: 22px;
+                        font-size: 1rem;
+                    }
+
+                    &:first-child {
+                        border-radius: 10px 0 0 10px;
+                    }
+
+                    &:last-child {
+                        border-radius: 0 10px 10px 0;
+                    }
                 }
 
                 &__input {
@@ -87,13 +138,56 @@
                     font-size: 1.2rem;
                     border-top: 1px solid $txt-second-color;
                     border-bottom: 1px solid $txt-second-color;
+
+                    @include mobile {
+                        width: 40px;
+                        height: 22px;
+                        font-size: 0.9rem;
+                    }
                 }
             }
 
-            button {
-                margin-right: 1rem;
+            &__btn {
+                @include mobile{
+                    @include flex(flex-start, flex-start);
+                    flex-direction: column;
+                }
 
+                .ant-btn {
+                    width: 150px;
+                    height: 50px;
+                    margin-right: 10px;
+                    text-transform: uppercase;
+                    font-size: 0.9rem;
+
+                    @include mobile {
+                        width: 120px;
+                        height: 30px;
+                        font-size: 0.65rem;
+                        margin-top: 10px;
+                    }
+                }
+            }
+
+        }
+    }
+
+    &__description {
+        padding-top: 10px;
+
+        .ant-collapse-header {
+            font-weight: 500;
+            font-size: 1.25rem;
+
+            @include mobile{
+                font-size: 1rem;
             }
         }
+    }
+}
+
+.header {
+    &__route {
+        padding: 20px 0;
     }
 }

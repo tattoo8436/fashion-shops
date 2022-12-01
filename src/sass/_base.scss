@@ -25,11 +25,22 @@ ul {
     width: 100%;
     padding: 0 50px;
 
-    @include mobile{
+    @include mobile {
         padding: 0 10px;
     }
 }
 
-.grid{
+.grid {
     display: grid;
+}
+
+@each $color,
+$val in $colors {
+    .color-#{$color} {
+        color: $val;
+    }
+
+    .bg-#{$color} {
+        background-color: $val;
+    }
 }
