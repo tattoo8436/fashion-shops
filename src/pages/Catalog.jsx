@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Breadcrumb, Button, Checkbox, Col, Divider, Drawer, Empty, Input, Pagination, Row } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Breadcrumb, Button, Checkbox, Col, Divider, Drawer, Empty, Input, Pagination, Row, Skeleton } from 'antd';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -37,6 +37,20 @@ const Catalog = () => {
   const [colors, setColors] = useState([]);
   const [sizes, setSizes] = useState([]);
   const [searchTxt, setSearchTxt] = useState('');
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, [])
+
+  const onLoading = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }
 
   const onCategoriesChange = (e) => {
     setCategories(e);
@@ -122,11 +136,12 @@ const Catalog = () => {
                   onClick={() => {
                     updateProducts();
                     setOpenFilter(false);
+                    onLoading();
                   }}
                 >Lọc</Button>
 
                 <Button
-                onClick={() => window.location.reload()}
+                  onClick={() => window.location.reload()}
                 >Xoá bộ lọc</Button>
               </div>
             </Drawer>
@@ -151,7 +166,10 @@ const Catalog = () => {
                       onChange={(e) => setSearchTxt(e.target.value)}
                       placeholder='Tìm kiếm'
                       allowClear
-                      onSearch={updateProducts}
+                      onSearch={() => {
+                        onLoading();
+                        updateProducts();
+                      }}
                     />
                   </div>
                 </Col>
@@ -165,31 +183,36 @@ const Catalog = () => {
               </Row>
             </div>
 
-            <div className="catalog__content">
-              {products.length === 0 && <Empty />}
+            <Skeleton
+              active
+              loading={loading}
+            >
+              <div className="catalog__content">
+                {products.length === 0 && <Empty />}
 
-              <Row gutter={[30, 30]}>
-                {
-                  products.map((item, index) => (
-                    <Col xs={8} xl={4} key={index}>
-                      <ProductCard
-                        img={item.image01}
-                        name={item.title}
-                        price={Number(item.price)}
-                        slug={item.slug}
-                      />
-                    </Col>
-                  ))
-                }
-              </Row>
+                <Row gutter={[30, 30]}>
+                  {
+                    products.map((item, index) => (
+                      <Col xs={8} xl={4} key={index}>
+                        <ProductCard
+                          img={item.image01}
+                          name={item.title}
+                          price={Number(item.price)}
+                          slug={item.slug}
+                        />
+                      </Col>
+                    ))
+                  }
+                </Row>
 
-              <Row>
-                <Col>
-                  <Pagination />
-                </Col>
-              </Row>
+                <Row>
+                  <Col>
+                    <Pagination />
+                  </Col>
+                </Row>
 
-            </div>
+              </div>
+            </Skeleton>
           </div>
 
           <Divider />

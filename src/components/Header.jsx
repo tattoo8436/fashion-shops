@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Badge, Drawer, Menu } from 'antd';
-import { ContactsOutlined, CrownOutlined, GiftOutlined, HomeOutlined, MenuOutlined, SketchOutlined, UserOutlined } from '@ant-design/icons';
+import { ContactsOutlined, HomeOutlined, MenuOutlined, ShoppingOutlined, SketchOutlined, SkinOutlined, UserOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.min.css';
 
 import logo from '../assets/images/Logo-2.png';
@@ -50,7 +50,7 @@ const Header = () => {
         <div className="header__menu__right">
           <Link to='/cart'>
             <Badge count={valueItems} showZero>
-              <GiftOutlined />
+              <ShoppingOutlined />
             </Badge>
           </Link>
 
@@ -75,7 +75,7 @@ function MenuLeft(props) {
     {
       key: '/catalog',
       label: 'Sản phẩm',
-      icon: <CrownOutlined />,
+      icon: <SkinOutlined />,
     },
     {
       key: '/accessories',
