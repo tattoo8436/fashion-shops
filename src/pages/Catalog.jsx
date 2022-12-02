@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Breadcrumb, Button, Checkbox, Col, Divider, Drawer, Input, Pagination, Row } from 'antd';
+import { Breadcrumb, Button, Checkbox, Col, Divider, Drawer, Empty, Input, Pagination, Row } from 'antd';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -124,6 +124,10 @@ const Catalog = () => {
                     setOpenFilter(false);
                   }}
                 >Lọc</Button>
+
+                <Button
+                onClick={() => window.location.reload()}
+                >Xoá bộ lọc</Button>
               </div>
             </Drawer>
 
@@ -162,12 +166,13 @@ const Catalog = () => {
             </div>
 
             <div className="catalog__content">
+              {products.length === 0 && <Empty />}
+
               <Row gutter={[30, 30]}>
                 {
                   products.map((item, index) => (
-                    <Col xs={8} xl={4}>
+                    <Col xs={8} xl={4} key={index}>
                       <ProductCard
-                        key={index}
                         img={item.image01}
                         name={item.title}
                         price={Number(item.price)}

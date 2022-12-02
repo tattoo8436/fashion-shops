@@ -67,7 +67,6 @@
 
                     width: 30px;
                     height: 30px;
-                    border-radius: 50%;
                     border: 1px solid $txt-second-color;
                     cursor: pointer;
                     margin-right: 1rem;
@@ -83,13 +82,12 @@
                     }
 
                     &.active {
-                        border: 3px solid $main-color;
+                        border: 2px solid $main-color;
                     }
 
                     .circle {
                         width: 90%;
                         height: 90%;
-                        border-radius: 50%;
                     }
 
                     &__size {

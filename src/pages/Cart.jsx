@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NumericFormat } from 'react-number-format';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import productData from '../assets/fake-data/products';
 import Helmet from '../components/Helmet';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import CartItem from '../components/CartItem';
 import { Breadcrumb, Button, Col, Row } from 'antd';
+import { clearCart } from '../redux/shopping-cart/cartItemSlide';
 
 const Cart = () => {
   const cartItems = useSelector((state) => {
@@ -19,10 +20,16 @@ const Cart = () => {
   const [cartProducts, setCartProducts] = useState(productData.getCartItemsInfo(cartItems));
   const [totalProduct, setTotalProduct] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [canOrder, setCanOrder] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [])
+
+  useEffect(() => {
+    setCanOrder(totalProduct > 0 ? true : false);
+  }, [totalProduct])
+  
 
   useEffect(() => {
     setCartProducts(productData.getCartItemsInfo(cartItems));
@@ -30,6 +37,14 @@ const Cart = () => {
     setTotalPrice(cartItems.reduce((total, item) => total + (Number(item.quantity) *
       Number(item.price)), 0));
   }, [cartItems])
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const onOrder = () => {
+    dispatch(clearCart());
+    navigate('/result');
+  }
 
   return (
     <>
@@ -75,7 +90,13 @@ const Cart = () => {
                   </div>
 
                   <div className="cart__info__btn">
-                    <Button type='primary' >Đặt hàng</Button>
+                    <Button type='primary'
+                      onClick={onOrder}
+                      disabled={!canOrder}
+                    >
+                      Đặt hàng
+                    </Button>
+
                     <Button>
                       <Link to='/catalog'>Tiếp tục mua hàng</Link>
                     </Button>

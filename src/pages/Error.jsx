@@ -3,7 +3,8 @@ import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Helmet from '../components/Helmet';
-import notFound from '../assets/fake-data/not-found'
+import { Button, Result } from 'antd';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   return (
@@ -13,7 +14,18 @@ const Home = () => {
         <div className="main">
           <Helmet title='Không tìm thấy'>
             <div className="not-found">
-              <img src={notFound.image} alt="" />
+              <Result
+                status='404'
+                title='404'
+                subTitle='Trang không tồn tại'
+                extra={
+                  <Link to='/'>
+                    <Button
+                      type='primary'
+                    >Về trang chủ</Button>
+                  </Link>
+                }
+              ></Result>
             </div>
           </Helmet>
         </div>
