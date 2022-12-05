@@ -41,7 +41,7 @@ const Catalog = () => {
     setTimeout(() => {
       setLoadProducts(true);
     }, 500);
-  }, [])
+  }, [products])
   
 
   const onCategoriesChange = (e) => {

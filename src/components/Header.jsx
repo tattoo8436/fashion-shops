@@ -98,7 +98,9 @@ function MenuLeft(props) {
       items={itemPages}
       mode={props.mode}
       defaultActiveFirst='/'
-      onClick={(e) => onMenuChange(e.key)}
+      onClick={(e) => {
+        onMenuChange(e.key);
+      }}
     ></Menu>
   )
 }

@@ -4,7 +4,7 @@
     }
 
     &__item {
-        padding: 20px;
+        padding-left: 20px;
 
         &__info {
 
@@ -13,7 +13,7 @@
                 font-size: 1.25rem;
                 padding-bottom: 20px;
 
-                @include mobile{
+                @include mobile {
                     font-size: 1rem;
                     padding-bottom: 5px;
                 }
@@ -23,7 +23,7 @@
                     font-size: 1rem;
                     text-transform: uppercase;
 
-                    @include mobile{
+                    @include mobile {
                         font-size: 0.7rem;
                         font-weight: 500;
                         padding-top: 5px;
@@ -36,7 +36,7 @@
                 font-size: 1.25rem;
                 padding-bottom: 20px;
 
-                @include mobile{
+                @include mobile {
                     padding-bottom: 5px;
                 }
             }
@@ -46,7 +46,7 @@
                     padding-top: 20px;
                     font-size: 1.75rem;
 
-                    @include mobile{
+                    @include mobile {
                         padding-top: 10px;
                         font-size: 1.25rem;
                     }
@@ -58,19 +58,25 @@
             }
 
         }
+
+        &__image {
+            img {
+                border-radius: 20px 0 20px 0;
+            }
+        }
     }
 
-    &__info{
-        &__txt{
-            p{
+    &__info {
+        &__txt {
+            p {
                 font-size: 1.25rem;
 
-                @include mobile{
+                @include mobile {
                     font-size: 1rem;
                 }
             }
 
-            &__price{
+            &__price {
                 font-size: 1.5rem;
                 font-weight: 500;
             }
@@ -78,7 +84,8 @@
 
         &__btn {
             margin-top: 20px;
-            @include mobile{
+
+            @include mobile {
                 @include flex(flex-start, flex-start);
                 flex-direction: column;
             }
@@ -99,8 +106,9 @@
             }
         }
     }
-}
 
-.ant-row {
-    margin-bottom: 20px;
+    &__list {
+        border: 1px solid $main-color;
+        border-radius: 10px;
+    }
 }

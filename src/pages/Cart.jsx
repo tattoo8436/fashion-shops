@@ -6,8 +6,10 @@ import productData from '../assets/fake-data/products';
 import Helmet from '../components/Helmet';
 import { Link, useNavigate } from 'react-router-dom';
 import CartItem from '../components/CartItem';
-import { Breadcrumb, Button, Col, Row } from 'antd';
+import { Breadcrumb, Button, Col, List, Row } from 'antd';
 import { clearCart } from '../redux/shopping-cart/cartItemSlide';
+
+import VirtualList from 'rc-virtual-list';
 
 const Cart = () => {
   const cartItems = useSelector((state) => {
@@ -44,6 +46,8 @@ const Cart = () => {
     navigate('/result');
   }
 
+  const dataTemp = ['Content 1', 'Content 2', 'Content 3', 'Content 4']
+
   return (
     <div className="container">
       <Helmet title='Giỏ hàng'>
@@ -61,19 +65,28 @@ const Cart = () => {
               </Breadcrumb>
             </div>
           </div>
-          
+
           <Row>
-            <Col span={14}>
+            <Col span={12}>
               <div className="cart__list">
-                {
-                  cartProducts.map((item, index) => (
-                    <CartItem key={index} item={item} />
-                  ))
-                }
+                <List>
+                  <VirtualList
+                    data={cartProducts}
+                    height={400}
+                    itemHeight={100}
+                    itemKey='cartProducts'
+                  >
+                    {(item) => (
+                      <List.Item>
+                        <CartItem key={item.slug} item={item}></CartItem>
+                      </List.Item>
+                    )}
+                  </VirtualList>
+                </List>
               </div>
             </Col>
 
-            <Col span={10}>
+            <Col span={10} offset={2}>
               <div className="cart__info">
                 <div className="cart__info__txt">
                   <p>Bạn đang có <strong>{totalProduct}</strong> sản phẩm trong giỏ hàng</p>
@@ -102,6 +115,8 @@ const Cart = () => {
           </Row>
 
         </div>
+
+
       </Helmet>
     </div>
   )
