@@ -32,6 +32,13 @@
     &__content {
         padding-top: 50px;
 
+        .ant-spin{
+            margin-left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            min-height: 300px;
+        }
+
         .ant-row{
             display: flex;
             justify-content: center;

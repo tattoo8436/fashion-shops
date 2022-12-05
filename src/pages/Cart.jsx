@@ -6,7 +6,7 @@ import productData from '../assets/fake-data/products';
 import Helmet from '../components/Helmet';
 import { Link, useNavigate } from 'react-router-dom';
 import CartItem from '../components/CartItem';
-import { Breadcrumb, Button, Col, Row, Skeleton } from 'antd';
+import { Breadcrumb, Button, Col, Row } from 'antd';
 import { clearCart } from '../redux/shopping-cart/cartItemSlide';
 
 const Cart = () => {
@@ -19,13 +19,9 @@ const Cart = () => {
   const [totalProduct, setTotalProduct] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [canOrder, setCanOrder] = useState(false);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
   }, [])
 
   useEffect(() => {
@@ -65,50 +61,45 @@ const Cart = () => {
               </Breadcrumb>
             </div>
           </div>
+          
+          <Row>
+            <Col span={14}>
+              <div className="cart__list">
+                {
+                  cartProducts.map((item, index) => (
+                    <CartItem key={index} item={item} />
+                  ))
+                }
+              </div>
+            </Col>
 
-          <Skeleton
-            active
-            loading={loading}
-          >
-            <Row>
-              <Col span={14}>
-                <div className="cart__list">
-                  {
-                    cartProducts.map((item, index) => (
-                      <CartItem key={index} item={item} />
-                    ))
-                  }
-                </div>
-              </Col>
+            <Col span={10}>
+              <div className="cart__info">
+                <div className="cart__info__txt">
+                  <p>Bạn đang có <strong>{totalProduct}</strong> sản phẩm trong giỏ hàng</p>
 
-              <Col span={10}>
-                <div className="cart__info">
-                  <div className="cart__info__txt">
-                    <p>Bạn đang có <strong>{totalProduct}</strong> sản phẩm trong giỏ hàng</p>
-
-                    <div className="cart__info__txt__price">
-                      <span>Tổng tiền: </span>
-                      <NumericFormat value={totalPrice} displayType={'text'}
-                        thousandSeparator={true}></NumericFormat>đ
-                    </div>
-                  </div>
-
-                  <div className="cart__info__btn">
-                    <Button type='primary'
-                      onClick={onOrder}
-                      disabled={!canOrder}
-                    >
-                      Đặt hàng
-                    </Button>
-
-                    <Button>
-                      <Link to='/catalog'>Tiếp tục mua hàng</Link>
-                    </Button>
+                  <div className="cart__info__txt__price">
+                    <span>Tổng tiền: </span>
+                    <NumericFormat value={totalPrice} displayType={'text'}
+                      thousandSeparator={true}></NumericFormat>đ
                   </div>
                 </div>
-              </Col>
-            </Row>
-          </Skeleton>
+
+                <div className="cart__info__btn">
+                  <Button type='primary'
+                    onClick={onOrder}
+                    disabled={!canOrder}
+                  >
+                    Đặt hàng
+                  </Button>
+
+                  <Button>
+                    <Link to='/catalog'>Tiếp tục mua hàng</Link>
+                  </Button>
+                </div>
+              </div>
+            </Col>
+          </Row>
 
         </div>
       </Helmet>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Breadcrumb, Button, Checkbox, Col, Divider, Drawer, Empty, Input, Pagination, Row, Skeleton } from 'antd';
+import { Breadcrumb, Button, Checkbox, Col, Divider, Drawer, Empty, Input, Pagination, Row, Spin } from 'antd';
 
 import Helmet from '../components/Helmet';
 import productData from '../assets/fake-data/products';
@@ -35,20 +35,14 @@ const Catalog = () => {
   const [colors, setColors] = useState([]);
   const [sizes, setSizes] = useState([]);
   const [searchTxt, setSearchTxt] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [loadProducts, setLoadProducts] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+      setLoadProducts(true);
+    }, 500);
   }, [])
-
-  const onLoading = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  }
+  
 
   const onCategoriesChange = (e) => {
     setCategories(e);
@@ -132,7 +126,6 @@ const Catalog = () => {
                 onClick={() => {
                   updateProducts();
                   setOpenFilter(false);
-                  onLoading();
                 }}
               >Lọc</Button>
 
@@ -163,7 +156,6 @@ const Catalog = () => {
                     placeholder='Tìm kiếm'
                     allowClear
                     onSearch={() => {
-                      onLoading();
                       updateProducts();
                     }}
                   />
@@ -178,37 +170,33 @@ const Catalog = () => {
               </Col>
             </Row>
           </div>
+          <div className="catalog__content">
+            {products.length === 0 && <Empty description='Không tìm thấy sản phẩm nào' />}
 
-          <Skeleton
-            active
-            loading={loading}
-          >
-            <div className="catalog__content">
-              {products.length === 0 && <Empty />}
+            {
+              loadProducts ?
+                <Row gutter={[30, 30]}>
+                  {
+                    products.map((item, index) => (
+                      <Col xs={8} xl={4} key={index}>
+                        <ProductCard
+                          img={item.image01}
+                          name={item.title}
+                          price={Number(item.price)}
+                          slug={item.slug}
+                        />
+                      </Col>
+                    ))
+                  }
+                </Row> : <Spin spinning />}
 
-              <Row gutter={[30, 30]}>
-                {
-                  products.map((item, index) => (
-                    <Col xs={8} xl={4} key={index}>
-                      <ProductCard
-                        img={item.image01}
-                        name={item.title}
-                        price={Number(item.price)}
-                        slug={item.slug}
-                      />
-                    </Col>
-                  ))
-                }
-              </Row>
+            <Row>
+              <Col>
+                <Pagination />
+              </Col>
+            </Row>
 
-              <Row>
-                <Col>
-                  <Pagination />
-                </Col>
-              </Row>
-
-            </div>
-          </Skeleton>
+          </div>
         </div>
 
         <Divider />
