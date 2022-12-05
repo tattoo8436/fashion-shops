@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NumericFormat } from 'react-number-format';
 
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 import productData from '../assets/fake-data/products';
 import Helmet from '../components/Helmet';
 import { Link, useNavigate } from 'react-router-dom';
@@ -51,74 +49,70 @@ const Cart = () => {
   }
 
   return (
-    <>
-      <Header />
-      <div className="container">
-        <Helmet title='Giỏ hàng'>
-          <div className="cart">
-            <div className="cart__header">
-              <div className="cart__header__route">
-                <Breadcrumb>
-                  <Breadcrumb.Item>
-                    <Link to='/'>Trang chủ</Link>
-                  </Breadcrumb.Item>
+    <div className="container">
+      <Helmet title='Giỏ hàng'>
+        <div className="cart">
+          <div className="cart__header">
+            <div className="cart__header__route">
+              <Breadcrumb>
+                <Breadcrumb.Item>
+                  <Link to='/'>Trang chủ</Link>
+                </Breadcrumb.Item>
 
-                  <Breadcrumb.Item>
-                    <Link>Giỏ hàng</Link>
-                  </Breadcrumb.Item>
-                </Breadcrumb>
-              </div>
+                <Breadcrumb.Item>
+                  <Link>Giỏ hàng</Link>
+                </Breadcrumb.Item>
+              </Breadcrumb>
             </div>
-
-            <Skeleton
-              active
-              loading={loading}
-            >
-              <Row>
-                <Col span={14}>
-                  <div className="cart__list">
-                    {
-                      cartProducts.map((item, index) => (
-                        <CartItem key={index} item={item} />
-                      ))
-                    }
-                  </div>
-                </Col>
-
-                <Col span={10}>
-                  <div className="cart__info">
-                    <div className="cart__info__txt">
-                      <p>Bạn đang có <strong>{totalProduct}</strong> sản phẩm trong giỏ hàng</p>
-
-                      <div className="cart__info__txt__price">
-                        <span>Tổng tiền: </span>
-                        <NumericFormat value={totalPrice} displayType={'text'}
-                          thousandSeparator={true}></NumericFormat>đ
-                      </div>
-                    </div>
-
-                    <div className="cart__info__btn">
-                      <Button type='primary'
-                        onClick={onOrder}
-                        disabled={!canOrder}
-                      >
-                        Đặt hàng
-                      </Button>
-
-                      <Button>
-                        <Link to='/catalog'>Tiếp tục mua hàng</Link>
-                      </Button>
-                    </div>
-                  </div>
-                </Col>
-              </Row>
-            </Skeleton>
-
           </div>
-        </Helmet>
-      </div>
-      <Footer />
-    </>
+
+          <Skeleton
+            active
+            loading={loading}
+          >
+            <Row>
+              <Col span={14}>
+                <div className="cart__list">
+                  {
+                    cartProducts.map((item, index) => (
+                      <CartItem key={index} item={item} />
+                    ))
+                  }
+                </div>
+              </Col>
+
+              <Col span={10}>
+                <div className="cart__info">
+                  <div className="cart__info__txt">
+                    <p>Bạn đang có <strong>{totalProduct}</strong> sản phẩm trong giỏ hàng</p>
+
+                    <div className="cart__info__txt__price">
+                      <span>Tổng tiền: </span>
+                      <NumericFormat value={totalPrice} displayType={'text'}
+                        thousandSeparator={true}></NumericFormat>đ
+                    </div>
+                  </div>
+
+                  <div className="cart__info__btn">
+                    <Button type='primary'
+                      onClick={onOrder}
+                      disabled={!canOrder}
+                    >
+                      Đặt hàng
+                    </Button>
+
+                    <Button>
+                      <Link to='/catalog'>Tiếp tục mua hàng</Link>
+                    </Button>
+                  </div>
+                </div>
+              </Col>
+            </Row>
+          </Skeleton>
+
+        </div>
+      </Helmet>
+    </div>
   )
 }
 

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Breadcrumb, Button, Checkbox, Col, Divider, Drawer, Empty, Input, Pagination, Row, Skeleton } from 'antd';
 
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 import Helmet from '../components/Helmet';
 import productData from '../assets/fake-data/products';
 import category from '../assets/fake-data/category';
@@ -89,137 +87,133 @@ const Catalog = () => {
   }
 
   return (
-    <>
-      <Header />
-      <div className="container">
-        <Helmet title='Sản phẩm'>
-          <div className="catalog">
-            <Drawer
-              open={openFilter}
-              onClose={() => setOpenFilter(false)}>
-              <div className="catalog__filter">
-                <div className="catalog__filter__title">
-                  Danh mục sản phẩm
-                </div>
-
-                <div className="catalog__filter__content">
-                  <Checkbox.Group
-                    options={optionCategories}
-                    onChange={onCategoriesChange}
-                  ></Checkbox.Group>
-                </div>
-
-                <div className="catalog__filter__title">
-                  Màu sắc
-                </div>
-
-                <div className="catalog__filter__content">
-                  <Checkbox.Group
-                    options={optionColors}
-                    onChange={onColorsChange}
-                  ></Checkbox.Group>
-                </div>
-
-                <div className="catalog__filter__title">
-                  Kích cỡ
-                </div>
-
-                <div className="catalog__filter__content">
-                  <Checkbox.Group
-                    options={optionSizes}
-                    onChange={onSizesChange}
-                  ></Checkbox.Group>
-                </div>
-
-                <Button
-                  type='primary'
-                  onClick={() => {
-                    updateProducts();
-                    setOpenFilter(false);
-                    onLoading();
-                  }}
-                >Lọc</Button>
-
-                <Button
-                  onClick={() => window.location.reload()}
-                >Xoá bộ lọc</Button>
-              </div>
-            </Drawer>
-
-            <div className="catalog__header">
-              <div className="catalog__header__route">
-                <Breadcrumb>
-                  <Breadcrumb.Item>
-                    <Link to='/'>Trang chủ</Link>
-                  </Breadcrumb.Item>
-
-                  <Breadcrumb.Item>
-                    <Link to='/catalog'>Sản phẩm</Link>
-                  </Breadcrumb.Item>
-                </Breadcrumb>
+    <div className="container">
+      <Helmet title='Sản phẩm'>
+        <div className="catalog">
+          <Drawer
+            open={openFilter}
+            onClose={() => setOpenFilter(false)}>
+            <div className="catalog__filter">
+              <div className="catalog__filter__title">
+                Danh mục sản phẩm
               </div>
 
-              <Row>
-                <Col span={12} offset={6}>
-                  <div className="catalog__header__search">
-                    <Input.Search
-                      onChange={(e) => setSearchTxt(e.target.value)}
-                      placeholder='Tìm kiếm'
-                      allowClear
-                      onSearch={() => {
-                        onLoading();
-                        updateProducts();
-                      }}
-                    />
-                  </div>
-                </Col>
+              <div className="catalog__filter__content">
+                <Checkbox.Group
+                  options={optionCategories}
+                  onChange={onCategoriesChange}
+                ></Checkbox.Group>
+              </div>
 
-                <Col span={4} offset={2}>
-                  <div className="catalog__header__filter">
-                    Bộ lọc
-                    <FilterOutlined onClick={() => setOpenFilter(true)} />
-                  </div>
-                </Col>
-              </Row>
+              <div className="catalog__filter__title">
+                Màu sắc
+              </div>
+
+              <div className="catalog__filter__content">
+                <Checkbox.Group
+                  options={optionColors}
+                  onChange={onColorsChange}
+                ></Checkbox.Group>
+              </div>
+
+              <div className="catalog__filter__title">
+                Kích cỡ
+              </div>
+
+              <div className="catalog__filter__content">
+                <Checkbox.Group
+                  options={optionSizes}
+                  onChange={onSizesChange}
+                ></Checkbox.Group>
+              </div>
+
+              <Button
+                type='primary'
+                onClick={() => {
+                  updateProducts();
+                  setOpenFilter(false);
+                  onLoading();
+                }}
+              >Lọc</Button>
+
+              <Button
+                onClick={() => window.location.reload()}
+              >Xoá bộ lọc</Button>
+            </div>
+          </Drawer>
+
+          <div className="catalog__header">
+            <div className="catalog__header__route">
+              <Breadcrumb>
+                <Breadcrumb.Item>
+                  <Link to='/'>Trang chủ</Link>
+                </Breadcrumb.Item>
+
+                <Breadcrumb.Item>
+                  <Link to='/catalog'>Sản phẩm</Link>
+                </Breadcrumb.Item>
+              </Breadcrumb>
             </div>
 
-            <Skeleton
-              active
-              loading={loading}
-            >
-              <div className="catalog__content">
-                {products.length === 0 && <Empty />}
+            <Row>
+              <Col span={12} offset={6}>
+                <div className="catalog__header__search">
+                  <Input.Search
+                    onChange={(e) => setSearchTxt(e.target.value)}
+                    placeholder='Tìm kiếm'
+                    allowClear
+                    onSearch={() => {
+                      onLoading();
+                      updateProducts();
+                    }}
+                  />
+                </div>
+              </Col>
 
-                <Row gutter={[30, 30]}>
-                  {
-                    products.map((item, index) => (
-                      <Col xs={8} xl={4} key={index}>
-                        <ProductCard
-                          img={item.image01}
-                          name={item.title}
-                          price={Number(item.price)}
-                          slug={item.slug}
-                        />
-                      </Col>
-                    ))
-                  }
-                </Row>
-
-                <Row>
-                  <Col>
-                    <Pagination />
-                  </Col>
-                </Row>
-
-              </div>
-            </Skeleton>
+              <Col span={4} offset={2}>
+                <div className="catalog__header__filter">
+                  Bộ lọc
+                  <FilterOutlined onClick={() => setOpenFilter(true)} />
+                </div>
+              </Col>
+            </Row>
           </div>
 
-          <Divider />
-        </Helmet>
-      </div>
-      <Footer />
-    </>
+          <Skeleton
+            active
+            loading={loading}
+          >
+            <div className="catalog__content">
+              {products.length === 0 && <Empty />}
+
+              <Row gutter={[30, 30]}>
+                {
+                  products.map((item, index) => (
+                    <Col xs={8} xl={4} key={index}>
+                      <ProductCard
+                        img={item.image01}
+                        name={item.title}
+                        price={Number(item.price)}
+                        slug={item.slug}
+                      />
+                    </Col>
+                  ))
+                }
+              </Row>
+
+              <Row>
+                <Col>
+                  <Pagination />
+                </Col>
+              </Row>
+
+            </div>
+          </Skeleton>
+        </div>
+
+        <Divider />
+      </Helmet>
+    </div>
   )
 }
 

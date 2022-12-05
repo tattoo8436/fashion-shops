@@ -1,33 +1,25 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import Home from '../pages/Home';
-import Catalog from '../pages/Catalog';
-import Product from '../pages/Product';
-import Cart from '../pages/Cart';
-import Error from '../pages/Error';
-import Result from '../pages/Result';
-
+import { BrowserRouter } from 'react-router-dom';
 import { ConfigProvider } from 'antd';
 import 'antd/dist/antd.min.css';
 import 'antd/dist/antd.variable.min.css';
+
+import AppRoutes from '../routes/AppRoutes';
+import Header from './Header';
+import Footer from './Footer';
 
 const Layout = () => {
   ConfigProvider.config({ theme: { primaryColor: '#992fe2' } });
 
   return (
-    <ConfigProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/catalog' element={<Catalog />} />
-          <Route path='/catalog/:slug' element={<Product />} />
-          <Route path='/cart' element={<Cart />} />
-          <Route path='/result' element={<Result />} />
-          <Route path='/*' element={<Error />} />
-        </Routes>
-      </BrowserRouter>
-    </ConfigProvider>
+    <BrowserRouter>
+      <ConfigProvider>
+        <Header />
+        <AppRoutes />
+        <Footer />
+      </ConfigProvider>
+    </BrowserRouter>
   )
 }
 

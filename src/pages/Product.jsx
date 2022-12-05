@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-
 import productData from '../assets/fake-data/products';
 import Helmet from '../components/Helmet';
 import ProductView from '../components/ProductView';
@@ -23,35 +20,31 @@ const Product = props => {
   }, [])
 
   return (
-    <>
-      <Header />
-      <div className="container">
-        <div className="header__route">
-          <Breadcrumb>
-            <Breadcrumb.Item>
-              <Link to='/'>Trang chủ</Link>
-            </Breadcrumb.Item>
+    <div className="container">
+      <div className="header__route">
+        <Breadcrumb>
+          <Breadcrumb.Item>
+            <Link to='/'>Trang chủ</Link>
+          </Breadcrumb.Item>
 
-            <Breadcrumb.Item>
-              <Link to='/catalog'>Sản phẩm</Link>
-            </Breadcrumb.Item>
+          <Breadcrumb.Item>
+            <Link to='/catalog'>Sản phẩm</Link>
+          </Breadcrumb.Item>
 
-            <Breadcrumb.Item>
-              <Link>{product.slug} </Link>
-            </Breadcrumb.Item>
-          </Breadcrumb>
-        </div>
-        <Helmet title={product.title}>
-          <Skeleton
-            active
-            loading={loading}
-          >
-            <ProductView product={product} />
-          </Skeleton>
-        </Helmet>
+          <Breadcrumb.Item>
+            <Link>{product.slug} </Link>
+          </Breadcrumb.Item>
+        </Breadcrumb>
       </div>
-      <Footer />
-    </>
+      <Helmet title={product.title}>
+        <Skeleton
+          active
+          loading={loading}
+        >
+          <ProductView product={product} />
+        </Skeleton>
+      </Helmet>
+    </div>
   )
 }
 
