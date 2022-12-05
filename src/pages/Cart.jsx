@@ -46,8 +46,6 @@ const Cart = () => {
     navigate('/result');
   }
 
-  const dataTemp = ['Content 1', 'Content 2', 'Content 3', 'Content 4']
-
   return (
     <div className="container">
       <Helmet title='Giỏ hàng'>
