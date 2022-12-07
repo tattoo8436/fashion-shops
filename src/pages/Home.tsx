@@ -4,7 +4,7 @@ import Helmet from '../components/Helmet';
 import HeroSlider from '../components/HeroSlider';
 import heroSliderData from '../assets/fake-data/hero-slider';
 
-const Home = () => {
+const Home = (): JSX.Element => {
 
   return (
     <div className="container">

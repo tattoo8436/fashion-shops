@@ -11,8 +11,8 @@ import { clearCart } from '../redux/shopping-cart/cartItemSlide';
 
 import VirtualList from 'rc-virtual-list';
 
-const Cart = () => {
-  const cartItems = useSelector((state) => {
+const Cart = (): JSX.Element => {
+  const cartItems = useSelector((state: any) => {
     console.log(state.cartItems);
     return state.cartItems.value
   });
@@ -33,8 +33,8 @@ const Cart = () => {
 
   useEffect(() => {
     setCartProducts(productData.getCartItemsInfo(cartItems));
-    setTotalProduct(cartItems.reduce((total, item) => total + Number(item.quantity), 0));
-    setTotalPrice(cartItems.reduce((total, item) => total + (Number(item.quantity) *
+    setTotalProduct(cartItems.reduce((total: any, item: any) => total + Number(item.quantity), 0));
+    setTotalPrice(cartItems.reduce((total: any, item: any) => total + (Number(item.quantity) *
       Number(item.price)), 0));
   }, [cartItems])
 
@@ -58,7 +58,7 @@ const Cart = () => {
                 </Breadcrumb.Item>
 
                 <Breadcrumb.Item>
-                  <Link>Giỏ hàng</Link>
+                  <Link to='/cart'>Giỏ hàng</Link>
                 </Breadcrumb.Item>
               </Breadcrumb>
             </div>
@@ -75,8 +75,8 @@ const Cart = () => {
                     itemKey='cartProducts'
                   >
                     {(item) => (
-                      <List.Item>
-                        <CartItem key={item.slug} item={item}></CartItem>
+                      <List.Item key={item.slug}>
+                        <CartItem item={item}></CartItem>
                       </List.Item>
                     )}
                   </VirtualList>
@@ -113,8 +113,6 @@ const Cart = () => {
           </Row>
 
         </div>
-
-
       </Helmet>
     </div>
   )

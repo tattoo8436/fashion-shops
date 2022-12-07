@@ -4,7 +4,7 @@ import Helmet from '../components/Helmet';
 import { Button, Result } from 'antd';
 import { Link } from 'react-router-dom';
 
-const Home = () => {
+const Error = (): JSX.Element => {
 
   return (
     <div className="container">
@@ -30,4 +30,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Error

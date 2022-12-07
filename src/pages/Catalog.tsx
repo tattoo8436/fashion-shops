@@ -10,10 +10,22 @@ import { FilterOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 
-const Catalog = () => {
+interface IProduct{
+  title: string,
+  price: string,
+  image01: typeof import("*.jpg"),
+  image02: typeof import("*.jpg"),
+  categorySlug: string,
+  colors: string[],
+  slug: string,
+  size: string[],
+  description: string
+}
+
+const Catalog = (): JSX.Element => {
   const productList = productData.getAllProducts();
 
-  const [products, setProducts] = useState(productList);
+  const [products, setProducts] = useState<IProduct[]>(productList);
 
   const optionCategories = category.map((item) => ({
     label: item.display,
@@ -31,9 +43,9 @@ const Catalog = () => {
   }))
 
   const [openFilter, setOpenFilter] = useState(false);
-  const [categories, setCategories] = useState([]);
-  const [colors, setColors] = useState([]);
-  const [sizes, setSizes] = useState([]);
+  const [categories, setCategories] = useState<string[]>([]);
+  const [colors, setColors] = useState<string[]>([]);
+  const [sizes, setSizes] = useState<string[]>([]);
   const [searchTxt, setSearchTxt] = useState('');
   const [loadProducts, setLoadProducts] = useState(false);
 
@@ -44,15 +56,15 @@ const Catalog = () => {
   }, [products])
   
 
-  const onCategoriesChange = (e) => {
+  const onCategoriesChange = (e: any) => {
     setCategories(e);
   }
 
-  const onColorsChange = (e) => {
+  const onColorsChange = (e: any) => {
     setColors(e);
   }
 
-  const onSizesChange = (e) => {
+  const onSizesChange = (e: any) => {
     setSizes(e)
   }
 
@@ -61,11 +73,11 @@ const Catalog = () => {
     let temp = productList;
     console.log(temp);
     if (categories.length > 0) {
-      temp = temp.filter(e => categories.includes(e.categorySlug));
+      temp = temp.filter((e) => categories.includes(e.categorySlug));
     }
     if (colors.length > 0) {
-      temp = temp.filter(e => {
-        const check = e.colors.find(color => colors.includes(color));
+      temp = temp.filter((e) => {
+        const check = e.colors.find((color: any) => colors.includes(color));
         return check !== undefined;
       })
     }

@@ -2,14 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 
-import './assets/boxicons-2.0.7/css/boxicons.min.css';
 import './sass/index.scss';
 import { store } from './redux/store';
 import { Provider } from 'react-redux';
-
 import Layout from './components/Layout';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
 root.render(
   <Provider store={store}>
     <Layout />

@@ -6,9 +6,9 @@ import Helmet from '../components/Helmet';
 import ProductView from '../components/ProductView';
 import { Breadcrumb } from 'antd';
 
-const Product = props => {
+const Product = (props: any): JSX.Element => {
   const param = useParams();
-  const product = productData.getProductBySlug(param.slug);
+  const product: any = productData.getProductBySlug(param.slug);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -27,7 +27,7 @@ const Product = props => {
           </Breadcrumb.Item>
 
           <Breadcrumb.Item>
-            <Link>{product.slug} </Link>
+            <span>{product.slug} </span>
           </Breadcrumb.Item>
         </Breadcrumb>
       </div>

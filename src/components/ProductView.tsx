@@ -7,13 +7,13 @@ import { useNavigate } from 'react-router';
 import { addItem } from '../redux/shopping-cart/cartItemSlide';
 import { Button, Col, Collapse, Image, notification, Row } from 'antd';
 
-const ProductView = props => {
+const ProductView = (props: any) => {
     const product = props.product;
     const [color, setColor] = useState(undefined);
     const [size, setSize] = useState(undefined);
     const [quantity, setQuantity] = useState(1);
 
-    const updateQuantity = (type) => {
+    const updateQuantity = (type: any) => {
         if (type === 'plus') {
             setQuantity(quantity + 1);
         } else {
@@ -42,7 +42,7 @@ const ProductView = props => {
         })
     }
 
-    const notifyError = (e) => {
+    const notifyError = (e: any) => {
         apiNotify.error({
             message: 'Lỗi',
             description: e
@@ -125,7 +125,7 @@ const ProductView = props => {
 
                             <div className="product__info__item__list">
                                 {
-                                    product.colors.map((item, index) => (
+                                    product.colors.map((item: any, index: any) => (
                                         <div key={index} className={`product__info__item__list__item 
                                 ${color === item ? 'active' : ''}`} onClick={() => setColor(item)}>
                                             <div className={`circle bg-${item}`}></div>
@@ -142,7 +142,7 @@ const ProductView = props => {
 
                             <div className="product__info__item__list">
                                 {
-                                    product.size.map((item, index) => (
+                                    product.size.map((item: any, index: any) => (
                                         <div key={index} className={`product__info__item__list__item 
                                 ${size === item ? 'active' : ''}`} onClick={() => setSize(item)}>
                                             <div className="product__info__item__list__item__size">
@@ -190,7 +190,7 @@ const ProductView = props => {
                 <Col span={24}>
                     <div className="product__description">
                         <Collapse>
-                            <Collapse.Panel header='Thông tin sản phẩm'>
+                            <Collapse.Panel header='Thông tin sản phẩm' key='d'>
                                 <div className="product-description"
                                     dangerouslySetInnerHTML={{ __html: product.description }}
                                 ></div>

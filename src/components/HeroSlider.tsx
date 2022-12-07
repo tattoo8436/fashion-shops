@@ -3,14 +3,14 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom';
 import { Carousel, Button } from 'antd';
 
-const HeroSlider = props => {
+const HeroSlider = (props: any) => {
 
     const data = props.data;
 
     return (
         <Carousel autoplay autoplaySpeed={2000}>
             {
-                data.map((item, index) => {
+                data.map((item: any, index: any) => {
                     return (
                         <div className='hero-slider' key={index}>
                             <div className="hero-slider__item">

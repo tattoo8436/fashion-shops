@@ -1,18 +1,26 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+export interface CartItem {
+    color: string,
+    id: number,
+    price: string,
+    quantity: number,
+    size: string,
+    slug: string
+}
+
 const items = localStorage.getItem('cartItems') !== null ?
-    JSON.parse(localStorage.getItem('cartItems')) : [];
+    JSON.parse(localStorage.getItem('cartItems') || '{}') : [];
 const initialState = {
     value: items
 }
 
-export const cartItemsSlice = createSlice({
+const cartItemsSlice = createSlice({
     name: 'cartItems',
     initialState,
     reducers: {
         addItem: (state, action) => {
             const newItem = action.payload;
-            console.log(action);
             const duplicate = findItem(state.value, newItem);
 
             if (duplicate.length > 0) {
@@ -57,17 +65,17 @@ export const cartItemsSlice = createSlice({
     }
 })
 
-const findItem = (arr, item) => arr.filter(
+const findItem = (arr: CartItem[], item: CartItem) => arr.filter(
     e => e.slug === item.slug && e.color === item.color &&
         e.size === item.size
 )
 
-const delItem = (arr, item) => arr.filter(
+const delItem = (arr: CartItem[], item: CartItem) => arr.filter(
     e => e.slug !== item.slug || e.color !== item.color ||
         e.size !== item.size
 )
 
-const sortItems = (arr) => arr.sort((a, b) => a.id > b.id ? 1 : (a.id < b.id ? -1 : 0));
+const sortItems = (arr: CartItem[]) => arr.sort((a, b) => a.id > b.id ? 1 : (a.id < b.id ? -1 : 0));
 
 export const { addItem, updateItem, removeItem, clearCart } = cartItemsSlice.actions;
 

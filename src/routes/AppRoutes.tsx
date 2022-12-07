@@ -1,14 +1,14 @@
 import { Route, Routes } from 'react-router-dom';
 
-import { Result } from 'antd'
 import React from 'react'
 import Cart from '../pages/Cart'
 import Catalog from '../pages/Catalog'
 import Home from '../pages/Home'
 import Product from '../pages/Product'
 import Error from '../pages/Error'
+import Result from '../pages/Result';
 
-const AppRoutes = () => {
+const AppRoutes = (): JSX.Element => {
     return (
         <Routes>
             <Route path='/' element={<Home />} />

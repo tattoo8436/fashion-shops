@@ -3,20 +3,27 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Badge, Drawer, Menu } from 'antd';
 import { ContactsOutlined, HomeOutlined, MenuOutlined, ShoppingOutlined, SketchOutlined, SkinOutlined, UserOutlined } from '@ant-design/icons';
-import 'antd/dist/antd.min.css';
 
 import logo from '../assets/images/Logo-2.png';
 
-const Header = () => {
+import { CartItem } from '../redux/shopping-cart/cartItemSlide';
+
+interface State {
+  cartItems: {
+    value: CartItem[]
+  }
+}
+
+const Header = (): JSX.Element => {
   const [openMenu, setOpenMenu] = useState(false);
   const [valueItems, setValueItems] = useState(0);
-  
-  const totalItems = useSelector((state) => {
+
+  const totalItems: number = useSelector((state: State) => {
     let totalItems = 0;
     state.cartItems.value.map((item) => totalItems = totalItems + item.quantity);
     return totalItems;
   });
-  
+
   useEffect(() => {
     setValueItems(totalItems);
   }, [totalItems])
@@ -63,7 +70,7 @@ const Header = () => {
   )
 }
 
-function MenuLeft(props) {
+function MenuLeft(mode: any) {
   const navigate = useNavigate();
 
   const itemPages = [
@@ -89,15 +96,15 @@ function MenuLeft(props) {
     }
   ]
 
-  const onMenuChange = (key) => {
+  const onMenuChange = (key: string) => {
     navigate(key);
   }
 
   return (
     <Menu
       items={itemPages}
-      mode={props.mode}
-      defaultActiveFirst='/'
+      mode={mode}
+      defaultSelectedKeys={['/']}
       onClick={(e) => {
         onMenuChange(e.key);
       }}

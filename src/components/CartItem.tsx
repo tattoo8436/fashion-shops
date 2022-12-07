@@ -8,7 +8,7 @@ import { updateItem, removeItem } from '../redux/shopping-cart/cartItemSlide';
 import { Col, Image, Row } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 
-const CartItem = props => {
+const CartItem = (props: any) => {
     const dispatch = useDispatch();
     const [item, setItem] = useState(props.item);
     const [quantity, setQuantity] = useState(props.item.quantity);
@@ -18,7 +18,7 @@ const CartItem = props => {
         setQuantity(props.item.quantity);
     }, [props.item])
 
-    const updateQuantity = (opt) => {
+    const updateQuantity = (opt: any) => {
         if (opt === '+') {
             dispatch(updateItem({ ...item, quantity: quantity + 1 }));
         }

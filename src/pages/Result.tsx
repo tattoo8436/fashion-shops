@@ -4,7 +4,7 @@ import Helmet from '../components/Helmet';
 import { Link } from 'react-router-dom';
 import { Button, Result } from 'antd';
 
-const Cart = () => {
+const Cart = (): JSX.Element => {
 
   return (
     <div className="container">
