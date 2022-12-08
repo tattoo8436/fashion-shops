@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 import { updateItem, removeItem } from '../redux/shopping-cart/cartItemSlide';
 import { Col, Image, Row } from 'antd';
-import { DeleteOutlined } from '@ant-design/icons';
+import { DeleteOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 
 const CartItem = (props: any) => {
     const dispatch = useDispatch();
@@ -60,7 +60,7 @@ const CartItem = (props: any) => {
                         <div className="cart__item__info__quantity">
                             <div className="product__info__item__quantity">
                                 <div className="product__info__item__quantity__btn" onClick={() => updateQuantity('-')}>
-                                    <i className="bx bx-minus"></i>
+                                    <MinusOutlined />
                                 </div>
 
                                 <div className="product__info__item__quantity__input">
@@ -68,7 +68,7 @@ const CartItem = (props: any) => {
                                 </div>
 
                                 <div className="product__info__item__quantity__btn" onClick={() => updateQuantity('+')}>
-                                    <i className="bx bx-plus"></i>
+                                    <PlusOutlined />
                                 </div>
                             </div>
                         </div>

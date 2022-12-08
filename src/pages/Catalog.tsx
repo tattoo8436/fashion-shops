@@ -3,14 +3,12 @@ import { Breadcrumb, Button, Checkbox, Col, Divider, Drawer, Empty, Input, Pagin
 
 import Helmet from '../components/Helmet';
 import productData from '../assets/fake-data/products';
-import category from '../assets/fake-data/category';
-import color from '../assets/fake-data/product-color';
-import size from '../assets/fake-data/product-size';
 import { FilterOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
+import { CheckboxValueType } from 'antd/es/checkbox/Group';
 
-interface IProduct{
+interface IProduct {
   title: string,
   price: string,
   image01: typeof import("*.jpg"),
@@ -27,25 +25,10 @@ const Catalog = (): JSX.Element => {
 
   const [products, setProducts] = useState<IProduct[]>(productList);
 
-  const optionCategories = category.map((item) => ({
-    label: item.display,
-    value: item.categorySlug
-  }))
-
-  const optionColors = color.map((item) => ({
-    label: item.display,
-    value: item.color
-  }))
-
-  const optionSizes = size.map((item) => ({
-    label: item.display,
-    value: item.size
-  }))
-
   const [openFilter, setOpenFilter] = useState(false);
-  const [categories, setCategories] = useState<string[]>([]);
-  const [colors, setColors] = useState<string[]>([]);
-  const [sizes, setSizes] = useState<string[]>([]);
+  const [categories, setCategories] = useState<CheckboxValueType[]>([]);
+  const [colors, setColors] = useState<CheckboxValueType[]>([]);
+  const [sizes, setSizes] = useState<CheckboxValueType[]>([]);
   const [searchTxt, setSearchTxt] = useState('');
   const [loadProducts, setLoadProducts] = useState(false);
 
@@ -54,17 +37,17 @@ const Catalog = (): JSX.Element => {
       setLoadProducts(true);
     }, 500);
   }, [products])
-  
 
-  const onCategoriesChange = (e: any) => {
+
+  const onCategoriesChange = (e: CheckboxValueType[]) => {
     setCategories(e);
   }
 
-  const onColorsChange = (e: any) => {
+  const onColorsChange = (e: CheckboxValueType[]) => {
     setColors(e);
   }
 
-  const onSizesChange = (e: any) => {
+  const onSizesChange = (e: CheckboxValueType[]) => {
     setSizes(e)
   }
 
@@ -106,9 +89,20 @@ const Catalog = (): JSX.Element => {
 
               <div className="catalog__filter__content">
                 <Checkbox.Group
-                  options={optionCategories}
                   onChange={onCategoriesChange}
-                ></Checkbox.Group>
+                >
+                  <Row>
+                    <Col span={12}>
+                      <Checkbox value='ao-thun'>Áo thun</Checkbox>
+                    </Col>
+                    <Col span={12}>
+                      <Checkbox value='ao-somi'>Áo somi</Checkbox>
+                    </Col>
+                    <Col span={12}>
+                      <Checkbox value='quan-jean'>Quần jean</Checkbox>
+                    </Col>
+                  </Row>
+                </Checkbox.Group>
               </div>
 
               <div className="catalog__filter__title">
@@ -116,10 +110,30 @@ const Catalog = (): JSX.Element => {
               </div>
 
               <div className="catalog__filter__content">
-                <Checkbox.Group
-                  options={optionColors}
+              <Checkbox.Group
                   onChange={onColorsChange}
-                ></Checkbox.Group>
+                >
+                  <Row>
+                    <Col span={12}>
+                      <Checkbox value='white'>Trắng</Checkbox>
+                    </Col>
+                    <Col span={12}>
+                      <Checkbox value='pink'>Hồng</Checkbox>
+                    </Col>
+                    <Col span={12}>
+                      <Checkbox value='black'>Đen</Checkbox>
+                    </Col>
+                    <Col span={12}>
+                      <Checkbox value='yellow'>Vàng</Checkbox>
+                    </Col>
+                    <Col span={12}>
+                      <Checkbox value='orange'>Cam</Checkbox>
+                    </Col>
+                    <Col span={12}>
+                      <Checkbox value='blue'>Xanh dương</Checkbox>
+                    </Col>
+                  </Row>
+                </Checkbox.Group>
               </div>
 
               <div className="catalog__filter__title">
@@ -127,10 +141,27 @@ const Catalog = (): JSX.Element => {
               </div>
 
               <div className="catalog__filter__content">
-                <Checkbox.Group
-                  options={optionSizes}
+              <Checkbox.Group
                   onChange={onSizesChange}
-                ></Checkbox.Group>
+                >
+                  <Row>
+                    <Col span={12}>
+                      <Checkbox value='s'>S</Checkbox>
+                    </Col>
+                    <Col span={12}>
+                      <Checkbox value='m'>M</Checkbox>
+                    </Col>
+                    <Col span={12}>
+                      <Checkbox value='l'>L</Checkbox>
+                    </Col>
+                    <Col span={12}>
+                      <Checkbox value='xl'>XL</Checkbox>
+                    </Col>
+                    <Col span={12}>
+                      <Checkbox value='xxl'>XXL</Checkbox>
+                    </Col>
+                  </Row>
+                </Checkbox.Group>
               </div>
 
               <Button

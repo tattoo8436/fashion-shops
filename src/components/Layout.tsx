@@ -17,6 +17,7 @@ const Layout: React.FC = () => {
             colorPrimary: '#992fe2',
             colorLink: '#992fe2',
           },
+          hashed: false
         }}
       >
         <Header />

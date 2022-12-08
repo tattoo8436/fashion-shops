@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router';
 
 import { addItem } from '../redux/shopping-cart/cartItemSlide';
 import { Button, Col, Collapse, Image, notification, Row } from 'antd';
+import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 
 const ProductView = (props: any) => {
     const product = props.product;
@@ -162,7 +163,7 @@ const ProductView = (props: any) => {
                             <div className="product__info__item__quantity">
                                 <div className="product__info__item__quantity__btn"
                                     onClick={() => updateQuantity('minus')}>
-                                    <i className="bx bx-minus"></i>
+                                    <MinusOutlined />
                                 </div>
 
                                 <div className="product__info__item__quantity__input">
@@ -171,7 +172,7 @@ const ProductView = (props: any) => {
 
                                 <div className="product__info__item__quantity__btn"
                                     onClick={() => updateQuantity('plus')}>
-                                    <i className="bx bx-plus"></i>
+                                    <PlusOutlined />
                                 </div>
                             </div>
                         </div>

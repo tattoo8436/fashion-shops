@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Badge, Drawer, Menu } from 'antd';
 import { ContactsOutlined, HomeOutlined, MenuOutlined, ShoppingOutlined, SketchOutlined, SkinOutlined, UserOutlined } from '@ant-design/icons';
@@ -12,6 +12,13 @@ interface State {
   cartItems: {
     value: CartItem[]
   }
+}
+
+interface IMode {
+  mode: string,
+  openMenu: boolean,
+  setOpenMenu: React.Dispatch<React.SetStateAction<boolean>>,
+  path: string
 }
 
 const Header = (): JSX.Element => {
@@ -28,6 +35,8 @@ const Header = (): JSX.Element => {
     setValueItems(totalItems);
   }, [totalItems])
 
+  const path = useLocation();
+
   return (
     <div className='header'>
       <div className="header__logo">
@@ -43,7 +52,12 @@ const Header = (): JSX.Element => {
         </div>
 
         <span className="header__menu__left">
-          <MenuLeft mode='horizontal' />
+          <MenuLeft
+            mode='horizontal'
+            openMenu={openMenu}
+            setOpenMenu={setOpenMenu}
+            path={path.pathname}
+          />
         </span>
 
         <Drawer
@@ -51,7 +65,12 @@ const Header = (): JSX.Element => {
           placement='left'
           onClose={() => setOpenMenu(false)}
         >
-          <MenuLeft mode='vertical' />
+          <MenuLeft
+            mode='vertical'
+            openMenu={openMenu}
+            setOpenMenu={setOpenMenu}
+            path={path.pathname}
+          />
         </Drawer>
 
         <div className="header__menu__right">
@@ -70,7 +89,7 @@ const Header = (): JSX.Element => {
   )
 }
 
-function MenuLeft(mode: any) {
+function MenuLeft(props: IMode) {
   const navigate = useNavigate();
 
   const itemPages = [
@@ -103,10 +122,11 @@ function MenuLeft(mode: any) {
   return (
     <Menu
       items={itemPages}
-      mode={mode}
-      defaultSelectedKeys={['/']}
+      mode={props.mode === 'horizontal' ? 'horizontal' : 'vertical'}
+      defaultSelectedKeys={[props.path]}
       onClick={(e) => {
         onMenuChange(e.key);
+        props.setOpenMenu(false);
       }}
     ></Menu>
   )
